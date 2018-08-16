@@ -86,23 +86,21 @@ class ZhihuSpiderSpider(scrapy.Spider):
 
     def start_requests(self):
         #启动浏览器测试驱动
-        # web_driver = webdriver.Chrome('C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe')
-        # web_driver.get('https://www.zhihu.com/signin')
-        # web_driver.find_element_by_css_selector('.SignFlow-accountInput.Input-wrapper input').send_keys('zhangjl_0912@163.com')
-        # web_driver.find_element_by_css_selector('.SignFlow-password input').send_keys('HJW13XD53zjl')
-        # web_driver.find_element_by_css_selector('[type=submit]').click()
-        #
-        # time.sleep(10)
-        #
-        # cookies = web_driver.get_cookies()
-        # cookies_dict = {}
-        #
-        # for cookie in  cookies:
-        #     f = open('C:/Users/zhang/Desktop/zhihu_spider/zhihu/zhihu/cookie/' + 'cookies.zhihu','wb')
-        #     pickle.dump(cookie,f)
-        #     cookies_dict[cookie['name']] = cookie['value']
-        #
-        # web_driver.close()
-
-        cookies_dict = {'tgw_l7_route': 'b3dca7eade474617fe4df56e6c4934a3', 'z_c0': '"2|1:0|10:1532309009|4:z_c0|92:Mi4xOW1uX0FBQUFBQUFBVUtldHBVTHhEU1lBQUFCZ0FsVk5FSHhDWEFDdWt3VmFlZUkyWHVZUVQ1Q1g3TXI0a1EteTRB|010d9ff20a15d2b2c138559450405fc5e116092c807ef011102f541569fb6712"', 'q_c1': 'dc439125aa224c17a98650682d87b56f|1532309006000|1532309006000', '_zap': '8becb406-a5de-4eae-86e6-e80a3b91ee99', 'd_c0': '"AFCnraVC8Q2PTvPs6nMYaGqL6TI_op5t7Qo=|1532309006"', '_xsrf': 'f1c78012-2459-4985-8bf0-e4f76764f042', 'capsion_ticket': '"2|1:0|10:1532309007|14:capsion_ticket|44:MTI2ZTc3MzY3MzI5NGQ1MDk1NWRjMzFjOTNmNDE3Y2Y=|f6d8caaa1082b60f0148c443f736c87404b20a860a229017e13bf5bbbaa8c392"'}
+        web_driver = webdriver.Chrome('C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe')
+        web_driver.get('https://www.zhihu.com/signin')
+        web_driver.find_element_by_css_selector('.SignFlow-accountInput.Input-wrapper input').send_keys('***')#输入账号
+        web_driver.find_element_by_css_selector('.SignFlow-password input').send_keys('***')#输入密码
+        web_driver.find_element_by_css_selector('[type=submit]').click()
+        
+        time.sleep(10)
+        
+        cookies = web_driver.get_cookies()
+        cookies_dict = {}
+        
+        for cookie in  cookies:
+            f = open('C:/Users/zhang/Desktop/zhihu_spider/zhihu/zhihu/cookie/' + 'cookies.zhihu','wb')
+            pickle.dump(cookie,f)
+            cookies_dict[cookie['name']] = cookie['value']
+        
+        web_driver.close()
         yield scrapy.Request(url=self.start_urls[0],callback=self.parse,headers=self.headers,dont_filter=True,cookies=cookies_dict)
