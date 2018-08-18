@@ -4,12 +4,11 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-from sqlalchemy import create_engine
+
 from sqlalchemy.orm import sessionmaker
-from .items import Base
 
+from .items import Base, engine
 
-engine = create_engine('mysql://root:root@localhost:3306/zhihu?charset=utf8',echo=True)
 Session = sessionmaker(engine)
 
 
@@ -20,10 +19,10 @@ class ZhihuPipeline(object):
         self.session = Session()
 
     def process_item(self, item, spider):
-        a = item.member()
-        self.session.add(item.member())
+        one_item = item.member()
+        # self.session.add(one_item)
+        self.session.merge(one_item)
         self.session.commit()
-        pass
 
     def close_spider(self,spider):
         self.session.close_all()
