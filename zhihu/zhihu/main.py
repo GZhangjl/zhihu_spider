@@ -8,3 +8,4 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 # a = sys.path
 
 execute(['scrapy','crawl','zhihu_spider'])
+# execute(['scrapy','crawl','proxies'])

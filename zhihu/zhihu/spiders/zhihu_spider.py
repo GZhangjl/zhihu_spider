@@ -32,6 +32,12 @@ class ZhihuSpiderSpider(scrapy.Spider):
         'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"
     }
 
+    # custom_settings = {
+    #     'DOWNLOADER_MIDDLEWARES': {
+    #        'zhihu.middlewares.ProxyDownloaderMiddleware': 543,
+    #     }
+    # }
+
     def parse(self, response):
         urls = response.css('a::attr(href)').extract()
         urls = [parse.urljoin(response.url,url) for url in urls]

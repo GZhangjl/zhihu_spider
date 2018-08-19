@@ -7,9 +7,9 @@
 
 import scrapy
 from scrapy.loader.processors import MapCompose, Join, TakeFirst
-from sqlalchemy import create_engine
+# from sqlalchemy import create_engine
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy.dialects.mysql import INTEGER, VARCHAR, CHAR, DATETIME, BOOLEAN, NCHAR, NVARCHAR, MEDIUMTEXT
+from sqlalchemy.dialects.mysql import INTEGER, VARCHAR, DATETIME, BOOLEAN, NVARCHAR, MEDIUMTEXT
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
@@ -18,7 +18,7 @@ from collections import defaultdict
 # from sqlalchemy.orm import sessionmaker
 
 
-engine = create_engine('mysql://root:root@localhost:3306/zhihu?charset=utf8',echo=True)
+
 Base = declarative_base()
 
 # Session = sessionmaker(engine)

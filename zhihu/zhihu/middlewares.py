@@ -8,6 +8,21 @@
 from scrapy import signals
 
 
+class ProxyDownloaderMiddleware:
+
+    def __init__(self):
+        import json
+        with open('./utils/proxies.json', 'r') as f:
+            self.proxies_dict = json.load(f)
+
+    def process_request(self, request, spider):
+        import random
+        total = self.proxies_dict['total']
+        n = random.randrange(1, total+1)
+        proxy = self.proxies_dict['proxies'][str(n)]
+        request.meta['proxy'] = proxy
+
+
 class ZhihuSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the

@@ -68,6 +68,14 @@ ITEM_PIPELINES = {
    'zhihu.pipelines.ZhihuPipeline': 300,
 }
 
+# 数据库链接engin设定
+# 'mysql://root:root@localhost:3306/zhihu?charset=utf8'
+User = 'root'
+Passwd = 'root'
+Host = 'localhost' # '127.0.0.1'
+Port = '3306'
+dbName = 'zhihu'
+
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
@@ -77,7 +85,7 @@ ITEM_PIPELINES = {
 #AUTOTHROTTLE_MAX_DELAY = 60
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
-#AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
+AUTOTHROTTLE_TARGET_CONCURRENCY = 2.0
 # Enable showing throttling stats for every response received:
 #AUTOTHROTTLE_DEBUG = False
 
