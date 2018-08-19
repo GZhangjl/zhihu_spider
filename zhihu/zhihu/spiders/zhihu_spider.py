@@ -97,8 +97,8 @@ class ZhihuSpiderSpider(scrapy.Spider):
         # 原来是使用的最新版chrome以及最新版chromedriver会出现grant_type错误，经查为知乎开始在最近使用OAUTH认证。
         web_driver = webdriver.Chrome(r'C:\Users\zhang\Desktop\chromedriver_win32(1)\chromedriver.exe')
         web_driver.get('https://www.zhihu.com/signin')
-        web_driver.find_element_by_css_selector('.SignFlow-accountInput.Input-wrapper input').send_keys(r'zhangjl_0912@163.com') # 输入账号
-        web_driver.find_element_by_css_selector('.SignFlow-password input').send_keys(r'HJW13XD53zjl@#%W') # 输入密码
+        web_driver.find_element_by_css_selector('.SignFlow-accountInput.Input-wrapper input').send_keys('***') # 输入账号
+        web_driver.find_element_by_css_selector('.SignFlow-password input').send_keys('***') # 输入密码
         web_driver.find_element_by_css_selector('[type=submit]').click()
         time.sleep(10)
         cookies = web_driver.get_cookies()
