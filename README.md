@@ -10,7 +10,7 @@
 
 * 通过查看浏览器开发者工具，发现一个`URL` [https://www.zhihu.com/api/v4/questions/589...&limit=5&offset=5&sort_by=default](https://www.zhihu.com/api/v4/questions/58978414/answers?include=data%5B%2A%5D.is_normal%2Cadmin_closed_comment%2Creward_info%2Cis_collapsed%2Cannotation_action%2Cannotation_detail%2Ccollapse_reason%2Cis_sticky%2Ccollapsed_by%2Csuggest_edit%2Ccomment_count%2Ccan_comment%2Ccontent%2Ceditable_content%2Cvoteup_count%2Creshipment_settings%2Ccomment_permission%2Ccreated_time%2Cupdated_time%2Creview_info%2Crelevant_info%2Cquestion%2Cexcerpt%2Crelationship.is_authorized%2Cis_author%2Cvoting%2Cis_thanked%2Cis_nothelp%3Bdata%5B%2A%5D.mark_infos%5B%2A%5D.url%3Bdata%5B%2A%5D.author.follower_count%2Cbadge%5B%3F%28type%3Dbest_answerer%29%5D.topics&limit=5&offset=5&sort_by=default) ，该`URL`指向的其实是一个`Json`文件，通过将其内容复制出来发现该文件包括了相关问题中的5个回答，同时有`is_end`、`is_start`、`next`、`previous`、`totals`标签来指明“下一页”`URL`等信息，通过解析该`Json`文件就能够得到某一个问题下的所有回答信息
 
-> 知乎的问题和回答都是通过相应的`id`来确定的，只要观察相关`URL`的构造规律就能顺利某个问题与回答的相关页面
+    > 知乎的问题和回答都是通过相应的`id`来确定的，只要观察相关`URL`的构造规律就能顺利某个问题与回答的相关页面
 
 * 至此，页面分析工作基本完成，接下去进行数据库设计以及代码编写；该爬虫的`item`使用了`scrapy.loader.ItemLoader`进行额外封装，以方便进行页面解析以及数据处理，数据库使用`SQLAlchemy`库进行构建，为了面对问题和回答两种不同数据表结构复用同一套用于存储操作的`pipeline`，将各自数据表`model`和`model`的实例均嵌套在`item`类中，之后在`pipeline`中直接调用传递过来的`item`的方法或者嵌套类就能够完成数据表的创建和记录
 
