@@ -18,3 +18,7 @@
 * 以上就能够基本完成爬取知乎问题以及回答的过程并且将结果保存到数据库中
 
 ### 完成改进
+
+* 依旧是设定了`UserAgent`以及`proxy`，`UserAgent`的操作依然是使用`fake-useragent`包，并且配合`middleware`；因为前期已经发现[西刺代理（国内高匿代理）](http://www.xicidaili.com/nn)中存在大量无效`ip`，这次是通过`Scrapy`构建`ip`爬虫，爬取西刺代理页面，并且在解析出结果后直接通过代理访问 *http://httpbin.org/ip* 网站，如果访问成功，将会返回对应`ip`，如果`ip`无效，则会被网站拒绝，以此来验证爬到的`ip`能够使用；但是实际情况是，就算是通过爬取验证的代理最终也无法成功访问到知乎网站，故代理设置又被搁置
+
+* 当一个爬虫项目中存在两个爬虫（`zhihu_spider`/`proxies`）时，使用`custom_settings`进行`settings`临时设置，这样在两个爬虫的`pipeline`与`middleware`不同是可以相互区分
