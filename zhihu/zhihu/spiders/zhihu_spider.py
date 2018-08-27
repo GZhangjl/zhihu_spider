@@ -113,14 +113,15 @@ class ZhihuSpiderSpider(scrapy.Spider):
         # 模拟浏览器中直接输入验证码没区别）
         try:
             warn = web_driver.find_element_by_css_selector('.Unhuman-tip').text
+        except:
+            loger.debug('未检测出异常')
+        else:
             loger.debug("CAPTCHA WARNING:{warn}".format(warn=warn))
             page_html = web_driver.page_source
             xpath_str = '//*[@id="root"]/div/div[2]/section/div/img/@src'
             captcha_text = self.input_captcha('zhihu.com', page_html, xpath_str)
             web_driver.find_element_by_css_selector('div.Unhuman-input>input').send_keys(captcha_text)
             web_driver.find_element_by_css_selector('section.Unhuman-verificationCode>button').click()
-        except:
-            pass
 
         time.sleep(10)
         cookies = web_driver.get_cookies()

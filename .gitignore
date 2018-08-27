@@ -4,6 +4,8 @@ __pycache__/
 *$py.class
 .idea/
 
+zhihu_spider_temp.py
+zhihu_cookies.json
 # C extensions
 *.so
 
