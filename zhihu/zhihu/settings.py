@@ -19,7 +19,7 @@ NEWSPIDER_MODULE = 'zhihu.spiders'
 #USER_AGENT = 'zhihu (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -96,3 +96,6 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = 2.0
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+REDIRECT_ENABLED = True
+METAREFRESH_ENABLED = True
