@@ -11,6 +11,7 @@ import json
 import datetime
 from urllib import parse
 
+from zheye import zheye
 from zhihu.items import ZhihuQuestionItem, ZhihuAnswersItem
 
 loger = logging.getLogger('Spider')
