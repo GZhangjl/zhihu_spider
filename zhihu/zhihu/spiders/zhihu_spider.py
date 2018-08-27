@@ -148,7 +148,7 @@ class ZhihuSpiderSpider(scrapy.Spider):
         captcha_uri = html_response.xpath(xpath_str).extract_first()
         captcha = b64decode(captcha_uri.replace('\n', '').partition(',')[-1])
 
-        with open('./utils/captcha.png','wb') as p:
+        with open('./utils/captcha.gif','wb') as p:
             p.write(captcha)
 
         with Image.open('./utils/captcha.png') as img:
