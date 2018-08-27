@@ -75,7 +75,7 @@ class ZhihuQuestionItem(scrapy.Item):
         url = Column(VARCHAR(45))
         title = Column(NVARCHAR(100))
         content = Column(MEDIUMTEXT(), nullable=True)
-        topic = Column(NVARCHAR(100))
+        topic = Column(NVARCHAR(200))
         answers_num = Column(INTEGER())
         follower = Column(INTEGER())
         watcher = Column(INTEGER())
