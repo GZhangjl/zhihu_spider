@@ -28,5 +28,5 @@
 
 * 在爬虫过程中出现需要验证码验证的情况暂时没碰到，暂时无法分析页面的具体情况，所以暂时未作出具体处理。
 
-* 最近接触到第三方GUI库[`PySimpleGUI`](https://github.com/MikeTheWatchGuy/PySimpleGUI)，所以尝试使用该库制作了一个小的对话框，会在知乎检测到异常后跳出用于显示验证码和手工输入确认，虽然从功能上来说依旧鸡肋，但是比之前在console中输入要优雅一下（2018-08-29）
+* 最近接触到第三方GUI库[`PySimpleGUI`](https://github.com/MikeTheWatchGuy/PySimpleGUI)，所以尝试使用该库制作了一个小的对话框，会在知乎检测到异常后跳出用于显示验证码和手工输入确认，虽然从功能上来说依旧鸡肋，但是比之前在操作台中输入要优雅一下（2018-08-29）
 ![image](https://github.com/GZhangjl/zhihu_spider/blob/master/captcha_input.png)
