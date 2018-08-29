@@ -76,6 +76,11 @@ Host = 'localhost' # '127.0.0.1'
 Port = '3306'
 dbName = 'zhihu'
 
+# 云打码接入，设置打码用户的账号、密码
+# 注意：该平台在默认情况下识别打码是收费的！
+# yundama_username = ''
+# yundama_password = ''
+
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

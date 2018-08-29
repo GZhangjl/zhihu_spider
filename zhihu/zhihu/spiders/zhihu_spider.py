@@ -144,14 +144,21 @@ class ZhihuSpiderSpider(scrapy.Spider):
         from base64 import b64decode
         # from PIL import Image
         from zhihu.utils.captcha_input import captcha_input
+        # from zhihu.utils.yundama_module import yundama_on
+
         html_response = HtmlResponse(url=url, body=body_str, encoding='utf8')
         captcha_uri = html_response.xpath(xpath_str).extract_first()
         captcha = b64decode(captcha_uri.replace('\n', '').partition(',')[-1])
+        captcha_img_path = './utils/captcha.png'
 
-        with open('./utils/captcha.png','wb') as img:
+        with open(captcha_img_path,'wb') as img:
             img.write(captcha)
 
-        return captcha_input('./utils/captcha.png')
+        # 以下为接入云打码平台后的验证码处理（平台自动识别并获取文本），识别率较高
+        # 注意：该平台在默认情况下识别打码是收费的！
+        # return yundama_on(captcha_img_path)
+
+        return captcha_input(captcha_img_path)
 
         # 以下代码是原来用于往console中输入验证码的代码
 
