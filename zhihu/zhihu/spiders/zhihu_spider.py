@@ -151,7 +151,7 @@ class ZhihuSpiderSpider(scrapy.Spider):
         with open('./utils/captcha.gif','wb') as p:
             p.write(captcha)
 
-        with Image.open('./utils/captcha.png') as img:
+        with Image.open('./utils/captcha.gif') as img:
             img.show()
 
         captcha_text = input('请输入显示验证码：')
