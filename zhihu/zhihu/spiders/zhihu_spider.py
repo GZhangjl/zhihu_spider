@@ -11,7 +11,7 @@ import json
 import datetime
 from urllib import parse
 
-from zheye import zheye
+# from zheye import zheye
 from zhihu.items import ZhihuQuestionItem, ZhihuAnswersItem
 
 loger = logging.getLogger('Spider')
@@ -108,14 +108,12 @@ class ZhihuSpiderSpider(scrapy.Spider):
 
         # 网上普遍的声音是既然已经在使用Selenium了，那这些难办的验证码（这里指比如倒立文字验证码）直接预留时间手工点就行了
         # 原来有设想将开源第三方库zheye接入spider，但是在Selenium下很难做到，同时在有浏览器界面的情况下也显得没有必要
-        time.sleep(5)
+        time.sleep(5) # 给出等待时间用于处理可能存在的验证码，一般如果账号密码正确即可一次登录成功不会显示验证码
         web_driver.find_element_by_css_selector('[type=submit]').click()
         time.sleep(5)
 
         # “系统检测到您的帐号或IP存在异常流量，请进行验证用于确认这些请求不是自动程序发出的”
-        # 在同一ip（或同一账号）频繁访问知乎后，会被检测到疑似爬虫，需要验证码确认，以下为在模拟登陆后就出现验证码确认的情况的处理代码，
-        # 由于云打码的接入可能需要收费，所以暂时使用了自动显示验证码图片，然后可以手工往Console输入验证码的方式进行（虽然这样做跟直接在
-        # 模拟浏览器中直接输入验证码没区别）
+        # 在同一ip（或同一账号）频繁访问知乎后，会被检测到疑似爬虫，需要验证码确认，以下为在模拟登陆后就出现验证码确认的情况的处理代码
         try:
             warn = web_driver.find_element_by_css_selector('.Unhuman-tip').text
         except:
@@ -124,6 +122,7 @@ class ZhihuSpiderSpider(scrapy.Spider):
             loger.debug("CAPTCHA WARNING:{warn}".format(warn=warn))
             page_html = web_driver.page_source
             xpath_str = '//*[@id="root"]/div/div[2]/section/div/img/@src'
+            # 这里使用PySimpleGUI库做了一个小的界面，能够直接弹出对话框来进行验证码输入，虽然依然鸡肋，但是跟之前往console中输入相比更加优雅一点
             captcha_text = self.input_captcha('zhihu.com', page_html, xpath_str)
             web_driver.find_element_by_css_selector('div.Unhuman-input>input').send_keys(captcha_text)
             web_driver.find_element_by_css_selector('section.Unhuman-verificationCode>button').click()
@@ -143,17 +142,25 @@ class ZhihuSpiderSpider(scrapy.Spider):
     # 该方法主要用于爬虫被检测到后验证码页面的解析和操作
     def input_captcha(self, url, body_str, xpath_str):
         from base64 import b64decode
-        from PIL import Image
+        # from PIL import Image
+        from zhihu.utils.captcha_input import captcha_input
         html_response = HtmlResponse(url=url, body=body_str, encoding='utf8')
         captcha_uri = html_response.xpath(xpath_str).extract_first()
         captcha = b64decode(captcha_uri.replace('\n', '').partition(',')[-1])
 
-        with open('./utils/captcha.gif','wb') as img:
+        with open('./utils/captcha.png','wb') as img:
             img.write(captcha)
 
-        with Image.open('./utils/captcha.gif') as img:
-            img.show()
+        return captcha_input('./utils/captcha.png')
 
-        captcha_text = input('请输入显示验证码：')
+        # 以下代码是原来用于往console中输入验证码的代码
 
-        return captcha_text
+        # 由于云打码的接入可能需要收费，所以暂时使用了自动显示验证码图片，然后可以手工往Console输入验证码的方式进行（虽然这样做跟直接在
+        # 模拟浏览器中直接输入验证码没区别）
+
+        # with Image.open('./utils/captcha.png') as img:
+        #     img.show()
+        #
+        # captcha_text = input('请输入显示验证码：')
+        #
+        # return captcha_text
